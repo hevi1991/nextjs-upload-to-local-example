@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
   console.log(`File name: ${file.name}`);
   console.log(`Content-Length: ${file.size}`);
 
-  const destinationDirPath = path.join(process.cwd(), "public/upload");
+  const destinationDirPath = path.join(process.cwd(), process.env.STORE_PATH!);
   console.log(destinationDirPath);
 
   const fileArrayBuffer = await file.arrayBuffer();
@@ -34,5 +34,6 @@ export async function POST(req: NextRequest) {
     fileName: file.name,
     size: file.size,
     lastModified: new Date(file.lastModified),
+    url: `http://localhost:3000/api/file/${file.name}`,
   });
 }
