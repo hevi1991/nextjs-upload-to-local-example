@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
   const fileArrayBuffer = await file.arrayBuffer();
 
   if (!existsSync(destinationDirPath)) {
-    fs.mkdir(destinationDirPath, { recursive: true });
+    await fs.mkdir(destinationDirPath, { recursive: true });
   }
   await fs.writeFile(
     path.join(destinationDirPath, file.name),
