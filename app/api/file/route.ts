@@ -25,8 +25,14 @@ export async function POST(req: NextRequest) {
   if (!existsSync(destinationDirPath)) {
     await fs.mkdir(destinationDirPath, { recursive: true });
   }
+
+  let filename = file.name;
+  while (existsSync(path.join(destinationDirPath, filename))) {
+    filename = `(1)` + filename;
+  }
+
   await fs.writeFile(
-    path.join(destinationDirPath, file.name),
+    path.join(destinationDirPath, filename),
     Buffer.from(fileArrayBuffer)
   );
 
