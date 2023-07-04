@@ -2,10 +2,9 @@ import { existsSync } from "fs";
 import { notFound } from "next/navigation";
 import path from "path";
 
-import MyFlvPlayer from "./components/MyFlvPlayer";
-import mimelite from "mime/lite";
+import MyPlayer from "./components/MyPlayer";
 
-export default function PlayerPage({
+export default async function PlayerPage({
   searchParams: { filename },
 }: {
   searchParams: { filename: string };
@@ -19,19 +18,18 @@ export default function PlayerPage({
     notFound();
   }
 
-  console.log(filename);
-
   const [extension, ...name] = filename.split(".").reverse();
 
-  if (!["mp4", "flv"].includes(extension.toLowerCase())) {
+  if (!["mp4"].includes(extension.toLowerCase())) {
     notFound();
   }
 
   const url = `/api/file/${filename}`;
+  console.log(url);
 
   return (
     <>
-      <MyFlvPlayer url={url} />
+      <MyPlayer url={url} />
     </>
   );
 }

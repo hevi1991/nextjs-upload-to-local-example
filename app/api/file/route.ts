@@ -36,10 +36,15 @@ export async function POST(req: NextRequest) {
     Buffer.from(fileArrayBuffer)
   );
 
+  const [extension, ...name] = filename.split(".").reverse();
+
   return NextResponse.json({
     fileName: file.name,
     size: file.size,
     lastModified: new Date(file.lastModified),
     url: `http://localhost:3000/api/file/${file.name}`,
+    preview: ["mp4"].includes(extension.toLowerCase())
+      ? `http://192.168.33.112:3000/play?filename=${filename}`
+      : undefined,
   });
 }

@@ -28,6 +28,7 @@ export async function GET(
   if (mimeType) {
     headers.push(["Content-Type", mimeType]);
   }
+
   return new NextResponse(file, {
     headers,
   });
