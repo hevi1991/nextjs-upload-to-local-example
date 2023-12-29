@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
   console.log(`Content-Length: ${file.size}`);
 
   const destinationDirPath = path.join(process.cwd(), process.env.STORE_PATH!);
-  console.log(destinationDirPath);
+  console.log('destinationDirPath: ', destinationDirPath);
 
   const fileArrayBuffer = await file.arrayBuffer();
 
@@ -42,9 +42,9 @@ export async function POST(req: NextRequest) {
     fileName: file.name,
     size: file.size,
     lastModified: new Date(file.lastModified),
-    url: `http://localhost:3000/api/file/${file.name}`,
+    url: `/api/file/${file.name}`,
     preview: ["mp4"].includes(extension.toLowerCase())
-      ? `http://192.168.33.112:3000/play?filename=${filename}`
+      ? `/play?filename=${filename}`
       : undefined,
   });
 }
